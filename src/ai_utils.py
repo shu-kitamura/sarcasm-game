@@ -34,7 +34,15 @@ def generate_situation() -> str:
     return response.output_text
 
 def mock_situation() -> str:
+    import time
+    time.sleep(3)  # 模擬的な処理時間
     return "あなたは会社の先輩。後輩が朝10時に出社してきました（始業は9時）。机にコーヒーを置き、のんびり椅子に座ったところで、あなたが一言。"
+
+def mock_eval() -> str:
+    print("Mock evaluation called")
+    import time
+    time.sleep(5)  # 模擬的な処理時間
+    return "あなたの入力は、状況に対して適切な皮肉です。内容は面白く、相手を傷つけることなく、皮肉の意図が伝わります。"
 
 def evaluate_content_safety(sarcasm: str) -> dict:
     endpoint = os.getenv("CONTENT_SAFETY_ENDPOINT")

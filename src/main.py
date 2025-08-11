@@ -1,5 +1,5 @@
 import streamlit as st
-from ai_utils import generate_situation, evaluate_sarcasm, mock_situation
+from ai_utils import generate_situation, evaluate_sarcasm, mock_situation, mock_eval
 
 # TODO: 生成中と評価中に、実行中であることがわかるような表示が必要
 
@@ -14,7 +14,9 @@ def main() -> None:
 
     # 状況の生成ボタン
     if st.button("新しい状況を生成"):
-        st.session_state.update({"situation": mock_situation()})
+        with st.spinner("状況を生成中..."):
+            situation = mock_situation()
+            st.session_state.update({"situation": situation})
 
     situation = st.session_state.get("situation")
 
@@ -34,18 +36,19 @@ def main() -> None:
             submitted = st.form_submit_button("提出")
 
         if submitted:
-            evaluate_input(user_text, situation)
+            # evaluate_input(user_text, situation)
+            with st.spinner("評価中..."):
+                # 模擬的な評価処理
+                res = evaluate_input(user_text, situation)
+            
+            with st.container(border=True):
+                st.subheader("評価結果")
+                st.write(res)
 
 def evaluate_input(user_text: str, situation: str):
-    if not situation:
-        st.warning("状況を生成してください。")
-
     if user_text:
-        st.success(f"受け取りました: {user_text}")
-        res = evaluate_sarcasm(user_text, situation)
-        print(res)
-    else:
-        st.warning("入力が空です。テキストを入力してください。")
+        # res = evaluate_sarcasm(user_text, situation)
+        return mock_eval()
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Sarcasm Game", page_icon="🎭", layout="centered")
