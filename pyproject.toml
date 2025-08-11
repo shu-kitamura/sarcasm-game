@@ -1,0 +1,10 @@
+[project]
+name = "sarcasm-game"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "azure-ai-contentsafety>=1.0.0",
+    "streamlit>=1.48.0",
+]
