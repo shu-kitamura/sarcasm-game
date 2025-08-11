@@ -6,5 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "azure-ai-contentsafety>=1.0.0",
+    "dotenv>=0.9.9",
+    "openai>=1.99.7",
     "streamlit>=1.48.0",
 ]
