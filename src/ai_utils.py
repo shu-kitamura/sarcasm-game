@@ -25,24 +25,17 @@ def generate_situation() -> str:
             "目的：ユーザが“表向きは丁寧・内側に皮肉”を言いやすい状況を作る。"
             "制約：直接的な罵倒・差別・暴力の誘発は禁止。"
             "出力：3行以内、日本語のみ。1行目=あなたは○○です、2~3行目=相手の行動や発言（具体）"
-            "例：あなたは会社の先輩。\n後輩が朝10時に出社してきました（始業は9時）。\n机にコーヒーを置き、のんびり椅子に座ったところで、あなたが一言。"
+            "ジャンル：職場、学校、ご近所、親戚、友人、SNS、趣味、冠婚葬祭、旅行、買い物などを均等に使用してください。"
+            "例："
+            "あなたは会社の先輩。\n後輩が朝10時に出社してきました（始業は9時）。\n机にコーヒーを置き、のんびり椅子に座ったところで、あなたが一言。"
+            "あなたは町内会の会計係。\n会合で隣の役員が金色の派手な着物を見せびらかしています。\n周囲はやや引き気味です。\n"
+            "あなたは友人グループの一員。\nSNSで一人の友人が旅行の写真を100枚連投し続けています。\n通知が止まりません。"
             "余計な前置き・解説は書かない。"
         ),
         input=f"嫌味・皮肉を言いやすい状況を生成してください。",
     )
 
     return response.output_text
-
-def mock_situation() -> str:
-    import time
-    time.sleep(3)  # 模擬的な処理時間
-    return "あなたは会社の先輩。後輩が朝10時に出社してきました（始業は9時）。机にコーヒーを置き、のんびり椅子に座ったところで、あなたが一言。"
-
-def mock_eval() -> str:
-    print("Mock evaluation called")
-    import time
-    time.sleep(5)  # 模擬的な処理時間
-    return "あなたの入力は、状況に対して適切な皮肉です。内容は面白く、相手を傷つけることなく、皮肉の意図が伝わります。"
 
 def evaluate_content_safety(sarcasm: str) -> dict:
     endpoint = os.getenv("CONTENT_SAFETY_ENDPOINT")
@@ -77,10 +70,14 @@ def evaluate_sarcasm(sarcasm: str, situation: str) -> dict:
     response = client.responses.create(
         model="gpt-5-mini",
         instructions= (
-            "あなたは『京都風嫌味』ゲーム用の嫌味評価器です。"
-            "目的：ユーザが入力した皮肉な一言（sarcasm）が、与えられた状況（situation）に対して適切かどうかを評価する。"
-            "sarcasm と situation に加えて Content Safety の結果を考慮して、評価する。"
-            # TODO: システムプロンプト改善
+            "あなたは『京都風嫌味』ゲームの評価者です。"
+            "目的：与えられた sarcasm（ユーザの発話）、situation（状況）、"
+            "content_safety（Content Safety の評価値）をもとに、"
+            "京都風嫌味としての完成度を総評する。"
+            "総評は文章のみで3〜5文。"
+            "禁止：現実的なアドバイス、相手との関係性や感情面の注意喚起、"
+            "表情や声色の提案、改善案、言い方のコツ、長文の解説。"
+            "出力は総評の文章のみで、余計な前置きや後書きは書かない。"
         ),
         input=json.dumps(evaluate_target, ensure_ascii=False),
     )

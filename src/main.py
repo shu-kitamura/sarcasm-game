@@ -1,6 +1,5 @@
 import streamlit as st
-from ai_utils import generate_situation, evaluate_sarcasm, mock_situation, mock_eval
-
+from ai_utils import generate_situation, evaluate_sarcasm
 # TODO: 生成中と評価中に、実行中であることがわかるような表示が必要
 
 def main() -> None:
@@ -15,7 +14,7 @@ def main() -> None:
     # 状況の生成ボタン
     if st.button("新しい状況を生成"):
         with st.spinner("状況を生成中..."):
-            situation = mock_situation()
+            situation = generate_situation()
             st.session_state.update({"situation": situation})
 
     situation = st.session_state.get("situation")
@@ -38,7 +37,6 @@ def main() -> None:
         if submitted:
             # evaluate_input(user_text, situation)
             with st.spinner("評価中..."):
-                # 模擬的な評価処理
                 res = evaluate_input(user_text, situation)
             
             with st.container(border=True):
@@ -47,8 +45,8 @@ def main() -> None:
 
 def evaluate_input(user_text: str, situation: str):
     if user_text:
-        # res = evaluate_sarcasm(user_text, situation)
-        return mock_eval()
+        result = evaluate_sarcasm(user_text, situation)
+        return result
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Sarcasm Game", page_icon="🎭", layout="centered")
