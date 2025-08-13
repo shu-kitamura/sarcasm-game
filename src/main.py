@@ -9,7 +9,7 @@ def main() -> None:
     - 提出ボタン
     提出時に内容を表示します。
     """
-    st.title("Sarcasm Game")
+    st.title("京都人になろう")
 
     # 状況の生成ボタン
     if st.button("新しい状況を生成"):
@@ -63,7 +63,7 @@ def display_result(user_text: str, result: dict):
 
 
 if __name__ == "__main__":
-    st.set_page_config(page_title="Sarcasm Game", page_icon="🎭", layout="centered")
+    st.set_page_config(page_title="京都人になろう", page_icon="🎭", layout="centered")
     st.session_state.setdefault("situation", "")
 
     main()
