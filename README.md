@@ -4,10 +4,10 @@
 
 ## 概要
 
-1. ChatGPT5-mini が状況を生成する
+1. GPT5-mini が状況を生成する
 2. ユーザが嫌味を入力する
 3. Azure AI Content Safety が嫌味を評価する
-4. 以下を ChatGPT5-mini に渡して、コメント
+4. 以下を GPT5-mini に渡して、コメント
 
 
 ## 使用技術
